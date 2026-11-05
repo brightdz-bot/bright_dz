@@ -609,9 +609,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script>
-        // ضع رابط Google Apps Script الخاص بك هنا لربط جدول البيانات (Google Sheets)
+        // --- ضع الكود هنا تماماً ---
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSKU5_DJQ0ed8L8UwxOG_oboFzn05F5nZt7GvZfPyDGDlWkmQJqX1mDfKRoE05cFptGQ/exec';
 
         let currentPrice = 2300;
@@ -622,71 +622,9 @@
             document.getElementById('main-product-img').src = src;
         }
 
-        // Pack Selection Logic
-        function selectPack(packId, price) {
-            document.querySelectorAll('.pack-card').forEach(card => {
-                card.classList.remove('border-wood-500', 'shadow-xl');
-                card.classList.add('border-gray-200');
-            });
-            const selectedCard = document.getElementById('card-' + packId);
-            if (selectedCard) {
-                selectedCard.classList.remove('border-gray-200');
-                selectedCard.classList.add('border-wood-500', 'shadow-xl');
-            }
+        // ... بقية الدوال الخاصة بالصفحة ...
 
-            document.getElementById('bundle-select').value = packId;
-            updateBundleDetails(packId, price);
-
-            document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function updateBundleFromSelect() {
-            const val = document.getElementById('bundle-select').value;
-            let price = 1400;
-            if (val === 'pack2') price = 2300;
-            if (val === 'pack4') price = 3800;
-            
-            document.querySelectorAll('.pack-card').forEach(card => {
-                card.classList.remove('border-wood-500', 'shadow-xl');
-                card.classList.add('border-gray-200');
-            });
-            const selectedCard = document.getElementById('card-' + val);
-            if (selectedCard) {
-                selectedCard.classList.remove('border-gray-200');
-                selectedCard.classList.add('border-wood-500', 'shadow-xl');
-            }
-
-            updateBundleDetails(val, price);
-        }
-
-        function updateBundleDetails(packId, price) {
-            currentPrice = price;
-            if (packId === 'pack1') {
-                currentBundleName = 'قطعة واحدة (1)';
-                updateSummary(price, false);
-            } else if (packId === 'pack2') {
-                currentBundleName = 'قطعتين (2) + توصيل مجاني';
-                updateSummary(price, true);
-            } else if (packId === 'pack4') {
-                currentBundleName = '4 قطعات (4) + توصيل مجاني';
-                updateSummary(price, true);
-            }
-        }
-
-        function updateSummary(price, isFreeShipping) {
-            document.getElementById('summary-price').innerText = price.toLocaleString() + ' دج';
-            if (isFreeShipping) {
-                document.getElementById('summary-shipping').innerText = 'مجاني 🚛';
-                document.getElementById('summary-shipping').className = 'font-bold text-green-600';
-                document.getElementById('summary-total').innerText = price.toLocaleString() + ' دج';
-            } else {
-                document.getElementById('summary-shipping').innerText = '400 دج';
-                document.getElementById('summary-shipping').className = 'font-bold text-gray-800';
-                document.getElementById('summary-total').innerText = (price + 400).toLocaleString() + ' دج';
-            }
-        }
-
-        // Form Submit Handler & Google Sheets / Pixel integration
+        // دالة إرسال النموذج المحدثة
         function handleFormSubmit(e) {
             e.preventDefault();
 
@@ -696,18 +634,8 @@
             const commune = document.getElementById('commune').value;
             const totalText = document.getElementById('summary-total').innerText;
 
-            // Trigger Meta Pixel Purchase Event
-            if (typeof fbq === 'function') {
-                fbq('track', 'Purchase', {
-                    value: currentPrice,
-                    currency: 'DZD',
-                    content_name: 'حامل المناشف الخشبي بالجاذبية',
-                    content_type: 'product'
-                });
-            }
-
-            // Send data to Google Sheets if URL is provided
-            if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+            // إرسال البيانات إلى Google Sheets
+            if (GOOGLE_SCRIPT_URL) {
                 const formData = new URLSearchParams();
                 formData.append('fullName', fullName);
                 formData.append('phone', phone);
@@ -723,7 +651,7 @@
                 }).catch(err => console.log('Error sending to sheet:', err));
             }
 
-            // Show success modal
+            // إظهار نافذة النجاح
             document.getElementById('success-modal').classList.remove('hidden');
             document.getElementById('success-modal').classList.add('flex');
         }
@@ -731,7 +659,6 @@
         function closeModal() {
             document.getElementById('success-modal').classList.remove('flex');
             document.getElementById('success-modal').classList.add('hidden');
-            document.getElementById('checkout-form').reset();
         }
     </script>
 </body>
