@@ -1,9 +1,46 @@
+ها هو الكود البرمجي الكامل لصفحة الهبوط الخاصة بـ **حامل المناشف الخشبي الفاخر بالجاذبية** لمتجر **Bright DZ** بالتصميم الخشبي الدافئ والأنيق:
+
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bright DZ | حامل المناشف الخشبي الفاخر بالجاذبية</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="https://img.sanishtech.com/u/3a86d11c377dd97bb62d68ec8c748ec8.png">
+
+    <!-- Meta Pixel Code (Facebook Pixel) -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      var YOUR_PIXEL_ID = '1130382356394829'; 
+      
+      if(YOUR_PIXEL_ID && YOUR_PIXEL_ID !== 'YOUR_PIXEL_ID_HERE') {
+        fbq('init', YOUR_PIXEL_ID);
+        fbq('track', 'PageView');
+        fbq('track', 'ViewContent', {
+          content_name: 'حامل المناشف الخشبي بالجاذبية',
+          content_category: 'Home & Decor',
+          value: 2300,
+          currency: 'DZD'
+        });
+      }
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=1130382356394829&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -67,9 +104,9 @@
     <!-- Header -->
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-wood-100 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <div class="w-10 h-10 rounded-xl wood-gradient flex items-center justify-center text-white font-black text-xl shadow-md">
-                    B
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl border border-wood-500/30 flex items-center justify-center overflow-hidden shrink-0 bg-white shadow-md">
+                    <img src="https://img.sanishtech.com/u/3a86d11c377dd97bb62d68ec8c748ec8.png" alt="Bright DZ Logo" class="w-full h-full object-cover">
                 </div>
                 <div class="flex flex-col">
                     <span class="font-black text-xl tracking-tight text-wood-900 leading-none">Bright<span class="text-wood-600">DZ</span></span>
@@ -88,13 +125,13 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 
-                <!-- Media / Product Image Slider Showcase -->
+                <!-- Media / Product Image Showcase -->
                 <div class="space-y-4">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-white">
                         <span class="absolute top-4 right-4 z-10 bg-brandRed text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
                             <i class="fa-solid fa-fire"></i> الأوفر مبيعاً
                         </span>
-                        <img id="main-product-img" src="https://placehold.co/600x600/f7f1e5/754b2d?text=%DD8%AD%D8%A7%D9%85%D9%84+%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B4%D9%81+%D8%A7%D9%84%D8%AE%D8%B4%D8%A8%D9%8A+%D9%81%D8%A7%D8%AE%D8%B1" alt="حامل مناشف خشبي" class="w-full h-[380px] sm:h-[450px] object-cover transition-all duration-300">
+                        <img id="main-product-img" src="https://placehold.co/600x600/f7f1e5/754b2d?text=%D8%AD%D8%A7%D9%85%D9%84+%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B4%D9%81+%D8%A7%D9%84%D8%AE%D8%B4%D8%A8%D9%8A+%D9%81%D8%A7%D8%AE%D8%B1" alt="حامل مناشف خشبي" class="w-full h-[380px] sm:h-[450px] object-cover transition-all duration-300">
                     </div>
                     <!-- Thumbnails -->
                     <div class="grid grid-cols-4 gap-2">
@@ -182,7 +219,7 @@
         </div>
     </section>
 
-    <!-- Why Choose This Product (Features Detail) -->
+    <!-- Why Choose This Product -->
     <section class="py-12 bg-white border-y border-wood-100">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center max-w-2xl mx-auto mb-10">
@@ -192,7 +229,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
                 <div class="p-6 rounded-2xl bg-wood-50 border border-wood-100 text-center space-y-4 hover:shadow-md transition">
                     <div class="w-16 h-16 mx-auto rounded-2xl wood-gradient flex items-center justify-center text-white text-2xl shadow-md">
                         <i class="fa-solid fa-arrows-down-to-line"></i>
@@ -203,7 +239,6 @@
                     </p>
                 </div>
 
-                <!-- Card 2 -->
                 <div class="p-6 rounded-2xl bg-wood-50 border border-wood-100 text-center space-y-4 hover:shadow-md transition">
                     <div class="w-16 h-16 mx-auto rounded-2xl wood-gradient flex items-center justify-center text-white text-2xl shadow-md">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -214,7 +249,6 @@
                     </p>
                 </div>
 
-                <!-- Card 3 -->
                 <div class="p-6 rounded-2xl bg-wood-50 border border-wood-100 text-center space-y-4 hover:shadow-md transition">
                     <div class="w-16 h-16 mx-auto rounded-2xl wood-gradient flex items-center justify-center text-white text-2xl shadow-md">
                         <i class="fa-solid fa-gem"></i>
@@ -251,11 +285,11 @@
                         </div>
                         <ul class="py-4 space-y-2.5 text-xs text-gray-600">
                             <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-check text-green-550"></i>
+                                <i class="fa-solid fa-check text-green-600"></i>
                                 <span>1x حامل مناشف خشبي</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-check text-green-550"></i>
+                                <i class="fa-solid fa-check text-green-600"></i>
                                 <span>شريط لاصق متين مرفق</span>
                             </li>
                             <li class="flex items-center gap-2 text-gray-400">
@@ -312,7 +346,7 @@
                         </div>
                         <ul class="py-4 space-y-2.5 text-xs text-gray-600">
                             <li class="flex items-center gap-2 font-bold">
-                                <i class="fa-solid fa-check text-green-550"></i>
+                                <i class="fa-solid fa-check text-green-600"></i>
                                 <span>4x حامل مناشف خشبي</span>
                             </li>
                             <li class="flex items-center gap-2 font-bold text-green-600">
@@ -320,7 +354,7 @@
                                 <span>توصيل مجاني 🚛</span>
                             </li>
                             <li class="flex items-center gap-2">
-                                <i class="fa-solid fa-check text-green-550"></i>
+                                <i class="fa-solid fa-check text-green-600"></i>
                                 <span>أكبر نسبة توفير (خصم 1800 دج)</span>
                             </li>
                         </ul>
@@ -332,7 +366,7 @@
         </div>
     </section>
 
-    <!-- Order Form Section (COD Algeria) -->
+    <!-- Order Form Section -->
     <section id="order-form" class="py-12 bg-white">
         <div class="max-w-3xl mx-auto px-4">
             <div class="bg-wood-50 rounded-3xl p-6 sm:p-8 border-2 border-wood-200 shadow-xl">
@@ -343,7 +377,7 @@
                     <p class="text-gray-600 text-xs sm:text-sm mt-1">يرجى ملء معلوماتك بدقة، وسيتصل بك فريقنا لتأكيد الطلب</p>
                 </div>
 
-                <form onsubmit="handleFormSubmit(event)" class="space-y-5">
+                <form id="checkout-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
                     
                     <!-- Choice of Bundle -->
                     <div>
@@ -359,7 +393,7 @@
                     <div>
                         <label class="block text-xs font-bold text-gray-700 mb-1">الاسم الكامل <span class="text-red-500">*</span></label>
                         <div class="relative">
-                            <input type="text" required placeholder="مثال: محمد الأمين" class="w-full p-3.5 pr-10 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm">
+                            <input type="text" id="fullname" required placeholder="مثال: محمد الأمين" class="w-full p-3.5 pr-10 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm">
                             <i class="fa-solid fa-user absolute right-3.5 top-4 text-gray-400"></i>
                         </div>
                     </div>
@@ -368,7 +402,7 @@
                     <div>
                         <label class="block text-xs font-bold text-gray-700 mb-1">رقم الهاتف <span class="text-red-500">*</span></label>
                         <div class="relative">
-                            <input type="tel" required pattern="[0-9]{10}" placeholder="06XX XX XX XX" class="w-full p-3.5 pr-10 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm dir-ltr text-right">
+                            <input type="tel" id="phone" required pattern="[0-9]{10}" placeholder="06XX XX XX XX" class="w-full p-3.5 pr-10 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm dir-ltr text-right">
                             <i class="fa-solid fa-phone absolute right-3.5 top-4 text-gray-400"></i>
                         </div>
                     </div>
@@ -380,71 +414,71 @@
                             <label class="block text-xs font-bold text-gray-700 mb-1">الولاية <span class="text-red-500">*</span></label>
                             <select id="wilaya-select" required class="w-full p-3.5 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm">
                                 <option value="">إختر الولاية...</option>
-                                <option value="1">01 - أدرار</option>
-                                <option value="2">02 - الشلف</option>
-                                <option value="3">03 - الأغواط</option>
-                                <option value="4">04 - أم البواقي</option>
-                                <option value="5">05 - باتنة</option>
-                                <option value="6">06 - بجاية</option>
-                                <option value="7">07 - بسكرة</option>
-                                <option value="8">08 - بشار</option>
-                                <option value="9">09 - البليدة</option>
-                                <option value="10">10 - البويرة</option>
-                                <option value="11">11 - تمنراست</option>
-                                <option value="12">12 - تبسة</option>
-                                <option value="13">13 - تلمسان</option>
-                                <option value="14">14 - تيارت</option>
-                                <option value="15">15 - تيزي وزو</option>
-                                <option value="16">16 - الجزائر العاصمة</option>
-                                <option value="17">17 - الجلفة</option>
-                                <option value="18">18 - جيجل</option>
-                                <option value="19">19 - سطيف</option>
-                                <option value="20">20 - سعيدة</option>
-                                <option value="21">21 - سكيكدة</option>
-                                <option value="22">22 - سيدي بلعباس</option>
-                                <option value="23">23 - عنابة</option>
-                                <option value="24">24 - قالمة</option>
-                                <option value="25">25 - قسنطينة</option>
-                                <option value="26">26 - المدية</option>
-                                <option value="27">27 - مستغانم</option>
-                                <option value="28">28 - المسيلة</option>
-                                <option value="29">29 - معسكر</option>
-                                <option value="30">30 - ورقلة</option>
-                                <option value="31">31 - وهران</option>
-                                <option value="32">32 - البيض</option>
-                                <option value="33">33 - إليزي</option>
-                                <option value="34">34 - برج بوعريريج</option>
-                                <option value="35">35 - بومرداس</option>
-                                <option value="36">36 - الطارف</option>
-                                <option value="37">37 - تندوف</option>
-                                <option value="38">38 - تسمسيلت</option>
-                                <option value="39">39 - الوادي</option>
-                                <option value="40">40 - خنشلة</option>
-                                <option value="41">41 - سوق أهراس</option>
-                                <option value="42">42 - تيبازة</option>
-                                <option value="43">43 - ميلة</option>
-                                <option value="44">44 - عين الدفلى</option>
-                                <option value="45">45 - النعامة</option>
-                                <option value="46">46 - عين تموشنت</option>
-                                <option value="47">47 - غرداية</option>
-                                <option value="48">48 - غليزان</option>
-                                <option value="49">49 - تيميمون</option>
-                                <option value="50">50 - برج باجي مختار</option>
-                                <option value="51">51 - أولاد جلال</option>
-                                <option value="52">52 - بني عباس</option>
-                                <option value="53">53 - إن صالح</option>
-                                <option value="54">54 - إن قزام</option>
-                                <option value="55">55 - تقرت</option>
-                                <option value="56">56 - جانت</option>
-                                <option value="57">57 - المغير</option>
-                                <option value="58">58 - المنيعة</option>
+                                <option value="1 - أدرار">01 - أدرار</option>
+                                <option value="2 - الشلف">02 - الشلف</option>
+                                <option value="3 - الأغواط">03 - الأغواط</option>
+                                <option value="4 - أم البواقي">04 - أم البواقي</option>
+                                <option value="5 - باتنة">05 - باتنة</option>
+                                <option value="6 - بجاية">06 - بجاية</option>
+                                <option value="7 - بسكرة">07 - بسكرة</option>
+                                <option value="8 - بشار">08 - بشار</option>
+                                <option value="9 - البليدة">09 - البليدة</option>
+                                <option value="10 - البويرة">10 - البويرة</option>
+                                <option value="11 - تمنراست">11 - تمنراست</option>
+                                <option value="12 - تبسة">12 - تبسة</option>
+                                <option value="13 - تلمسان">13 - تلمسان</option>
+                                <option value="14 - تيارت">14 - تيارت</option>
+                                <option value="15 - تيزي وزو">15 - تيزي وزو</option>
+                                <option value="16 - الجزائر العاصمة">16 - الجزائر العاصمة</option>
+                                <option value="17 - الجلفة">17 - الجلفة</option>
+                                <option value="18 - جيجل">18 - جيجل</option>
+                                <option value="19 - سطيف">19 - سطيف</option>
+                                <option value="20 - سعيدة">20 - سعيدة</option>
+                                <option value="21 - سكيكدة">21 - سكيكدة</option>
+                                <option value="22 - سيدي بلعباس">22 - سيدي بلعباس</option>
+                                <option value="23 - عنابة">23 - عنابة</option>
+                                <option value="24 - قالمة">24 - قالمة</option>
+                                <option value="25 - قسنطينة">25 - قسنطينة</option>
+                                <option value="26 - المدية">26 - المدية</option>
+                                <option value="27 - مستغانم">27 - مستغانم</option>
+                                <option value="28 - المسيلة">28 - المسيلة</option>
+                                <option value="29 - معسكر">29 - معسكر</option>
+                                <option value="30 - ورقلة">30 - ورقلة</option>
+                                <option value="31 - وهران">31 - وهران</option>
+                                <option value="32 - البيض">32 - البيض</option>
+                                <option value="33 - إليزي">33 - إليزي</option>
+                                <option value="34 - برج بوعريريج">34 - برج بوعريريج</option>
+                                <option value="35 - بومرداس">35 - بومرداس</option>
+                                <option value="36 - الطارف">36 - الطارف</option>
+                                <option value="37 - تندوف">37 - تندوف</option>
+                                <option value="38 - تسمسيلت">38 - تسمسيلت</option>
+                                <option value="39 - الوادي">39 - الوادي</option>
+                                <option value="40 - خنشلة">40 - خنشلة</option>
+                                <option value="41 - سوق أهراس">41 - سوق أهراس</option>
+                                <option value="42 - تيبازة">42 - تيبازة</option>
+                                <option value="43 - ميلة">43 - ميلة</option>
+                                <option value="44 - عين الدفلى">44 - عين الدفلى</option>
+                                <option value="45 - النعامة">45 - النعامة</option>
+                                <option value="46 - عين تموشنت">46 - عين تموشنت</option>
+                                <option value="47 - غرداية">47 - غرداية</option>
+                                <option value="48 - غليزان">48 - غليزان</option>
+                                <option value="49 - تيميمون">49 - تيميمون</option>
+                                <option value="50 - برج باجي مختار">50 - برج باجي مختار</option>
+                                <option value="51 - أولاد جلال">51 - أولاد جلال</option>
+                                <option value="52 - بني عباس">52 - بني عباس</option>
+                                <option value="53 - إن صالح">53 - إن صالح</option>
+                                <option value="54 - إن قزام">54 - إن قزام</option>
+                                <option value="55 - تقرت">55 - تقرت</option>
+                                <option value="56 - جانت">56 - جانت</option>
+                                <option value="57 - المغير">57 - المغير</option>
+                                <option value="58 - المنيعة">58 - المنيعة</option>
                             </select>
                         </div>
 
                         <!-- Commune -->
                         <div>
                             <label class="block text-xs font-bold text-gray-700 mb-1">البلدية <span class="text-red-500">*</span></label>
-                            <input type="text" required placeholder="اسم البلدية" class="w-full p-3.5 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm">
+                            <input type="text" id="commune" required placeholder="اسم البلدية" class="w-full p-3.5 rounded-xl border border-gray-300 focus:border-wood-600 focus:outline-none bg-white text-sm">
                         </div>
                     </div>
 
@@ -465,7 +499,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="w-full py-4 px-6 rounded-xl bg-wood-800 hover:bg-wood-900 text-white font-black text-xl shadow-xl transition-all transform active:scale-98 flex items-center justify-center gap-3">
+                    <button type="submit" id="submit-btn" class="w-full py-4 px-6 rounded-xl bg-wood-800 hover:bg-wood-900 text-white font-black text-xl shadow-xl transition-all transform active:scale-98 flex items-center justify-center gap-3">
                         <i class="fa-solid fa-check-circle"></i>
                         <span>تأكيد الطلب الآن (الدفع عند الاستلام)</span>
                     </button>
@@ -577,6 +611,12 @@
 
     <!-- Scripts -->
     <script>
+        // ضع رابط Google Apps Script الخاص بك هنا لربط جدول البيانات (Google Sheets)
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+        let currentPrice = 2300;
+        let currentBundleName = 'قطعتين (2) - عرض المطبخ والحمام';
+
         // Image Switcher
         function changeImg(src) {
             document.getElementById('main-product-img').src = src;
@@ -584,7 +624,6 @@
 
         // Pack Selection Logic
         function selectPack(packId, price) {
-            // Update Card Styles
             document.querySelectorAll('.pack-card').forEach(card => {
                 card.classList.remove('border-wood-500', 'shadow-xl');
                 card.classList.add('border-gray-200');
@@ -595,13 +634,9 @@
                 selectedCard.classList.add('border-wood-500', 'shadow-xl');
             }
 
-            // Update Dropdown
             document.getElementById('bundle-select').value = packId;
+            updateBundleDetails(packId, price);
 
-            // Update Summary
-            updateSummary(price, packId !== 'pack1');
-
-            // Scroll to order form
             document.getElementById('order-form').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -611,7 +646,6 @@
             if (val === 'pack2') price = 2300;
             if (val === 'pack4') price = 3800;
             
-            // Update Card Styles
             document.querySelectorAll('.pack-card').forEach(card => {
                 card.classList.remove('border-wood-500', 'shadow-xl');
                 card.classList.add('border-gray-200');
@@ -622,7 +656,21 @@
                 selectedCard.classList.add('border-wood-500', 'shadow-xl');
             }
 
-            updateSummary(price, val !== 'pack1');
+            updateBundleDetails(val, price);
+        }
+
+        function updateBundleDetails(packId, price) {
+            currentPrice = price;
+            if (packId === 'pack1') {
+                currentBundleName = 'قطعة واحدة (1)';
+                updateSummary(price, false);
+            } else if (packId === 'pack2') {
+                currentBundleName = 'قطعتين (2) + توصيل مجاني';
+                updateSummary(price, true);
+            } else if (packId === 'pack4') {
+                currentBundleName = '4 قطعات (4) + توصيل مجاني';
+                updateSummary(price, true);
+            }
         }
 
         function updateSummary(price, isFreeShipping) {
@@ -638,9 +686,44 @@
             }
         }
 
-        // Form Submit Handler
+        // Form Submit Handler & Google Sheets / Pixel integration
         function handleFormSubmit(e) {
             e.preventDefault();
+
+            const fullName = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
+            const wilaya = document.getElementById('wilaya-select').value;
+            const commune = document.getElementById('commune').value;
+            const totalText = document.getElementById('summary-total').innerText;
+
+            // Trigger Meta Pixel Purchase Event
+            if (typeof fbq === 'function') {
+                fbq('track', 'Purchase', {
+                    value: currentPrice,
+                    currency: 'DZD',
+                    content_name: 'حامل المناشف الخشبي بالجاذبية',
+                    content_type: 'product'
+                });
+            }
+
+            // Send data to Google Sheets if URL is provided
+            if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                const formData = new URLSearchParams();
+                formData.append('fullName', fullName);
+                formData.append('phone', phone);
+                formData.append('wilaya', wilaya);
+                formData.append('commune', commune);
+                formData.append('offer', currentBundleName);
+                formData.append('totalPrice', totalText);
+
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).catch(err => console.log('Error sending to sheet:', err));
+            }
+
+            // Show success modal
             document.getElementById('success-modal').classList.remove('hidden');
             document.getElementById('success-modal').classList.add('flex');
         }
@@ -648,7 +731,10 @@
         function closeModal() {
             document.getElementById('success-modal').classList.remove('flex');
             document.getElementById('success-modal').classList.add('hidden');
+            document.getElementById('checkout-form').reset();
         }
     </script>
 </body>
 </html>
+
+```
