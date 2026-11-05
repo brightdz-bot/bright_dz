@@ -1,5 +1,3 @@
-ها هو الكود البرمجي الكامل لصفحة الهبوط الخاصة بـ **حامل المناشف الخشبي الفاخر بالجاذبية** لمتجر **Bright DZ** بالتصميم الخشبي الدافئ والأنيق:
-
 ```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -595,7 +593,7 @@
         </div>
     </footer>
 
-    <!-- Success Modal -->
+ <!-- Success Modal -->
     <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 shadow-2xl">
             <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl">
@@ -603,15 +601,14 @@
             </div>
             <h3 class="text-2xl font-black text-gray-800">تم تسجيل طلبك بنجاح!</h3>
             <p class="text-sm text-gray-600">
-                شكراً لثقتكم بـ **Bright DZ**. سيتصل بكم فريق خدمة الزبائن قريباً عبر الهاتف لتأكيد عنوان التسليم.
+                شكراً لثقتكم بـ <strong>Bright DZ</strong>. سيتصل بكم فريق خدمة الزبائن قريباً عبر الهاتف لتأكيد عنوان التسليم.
             </p>
             <button onclick="closeModal()" class="w-full py-3 bg-wood-800 text-white font-bold rounded-xl hover:bg-wood-900 transition">موافق</button>
         </div>
     </div>
 
-<!-- Scripts -->
+    <!-- Scripts -->
     <script>
-        // --- ضع الكود هنا تماماً ---
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSKU5_DJQ0ed8L8UwxOG_oboFzn05F5nZt7GvZfPyDGDlWkmQJqX1mDfKRoE05cFptGQ/exec';
 
         let currentPrice = 2300;
@@ -622,26 +619,103 @@
             document.getElementById('main-product-img').src = src;
         }
 
-        // ... بقية الدوال الخاصة بالصفحة ...
+        // Pack Selection Logic
+        function selectPack(packId, price) {
+            document.querySelectorAll('.pack-card').forEach(card => {
+                card.classList.remove('border-wood-500', 'shadow-xl');
+                card.classList.add('border-gray-200');
+            });
+            const selectedCard = document.getElementById('card-' + packId);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-gray-200');
+                selectedCard.classList.add('border-wood-500', 'shadow-xl');
+            }
 
-        // دالة إرسال النموذج المحدثة
+            document.getElementById('bundle-select').value = packId;
+            updateBundleDetails(packId, price);
+        }
+
+        function updateBundleFromSelect() {
+            const val = document.getElementById('bundle-select').value;
+            let price = 1400;
+            if (val === 'pack2') price = 2300;
+            if (val === 'pack4') price = 3800;
+            
+            document.querySelectorAll('.pack-card').forEach(card => {
+                card.classList.remove('border-wood-500', 'shadow-xl');
+                card.classList.add('border-gray-200');
+            });
+            const selectedCard = document.getElementById('card-' + val);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-gray-200');
+                selectedCard.classList.add('border-wood-500', 'shadow-xl');
+            }
+
+            updateBundleDetails(val, price);
+        }
+
+        function updateBundleDetails(packId, price) {
+            currentPrice = price;
+            if (packId === 'pack1') {
+                currentBundleName = 'قطعة واحدة (1)';
+                updateSummary(price, false);
+            } else if (packId === 'pack2') {
+                currentBundleName = 'قطعتين (2) + توصيل مجاني';
+                updateSummary(price, true);
+            } else if (packId === 'pack4') {
+                currentBundleName = '4 قطعات (4) + توصيل مجاني';
+                updateSummary(price, true);
+            }
+        }
+
+        function updateSummary(price, isFreeShipping) {
+            document.getElementById('summary-price').innerText = price.toLocaleString() + ' دج';
+            if (isFreeShipping) {
+                document.getElementById('summary-shipping').innerText = 'مجاني 🚛';
+                document.getElementById('summary-shipping').className = 'font-bold text-green-600';
+                document.getElementById('summary-total').innerText = price.toLocaleString() + ' دج';
+            } else {
+                document.getElementById('summary-shipping').innerText = '400 دج';
+                document.getElementById('summary-shipping').className = 'font-bold text-gray-800';
+                document.getElementById('summary-total').innerText = (price + 400).toLocaleString() + ' دج';
+            }
+        }
+
+        // Form Submit Handler & Google Sheets / Pixel integration
         function handleFormSubmit(e) {
             e.preventDefault();
 
+            // قراءة القيم بدقة من حقول النموذج
             const fullName = document.getElementById('fullname').value;
             const phone = document.getElementById('phone').value;
             const wilaya = document.getElementById('wilaya-select').value;
             const commune = document.getElementById('commune').value;
             const totalText = document.getElementById('summary-total').innerText;
 
-            // إرسال البيانات إلى Google Sheets
+            // تحديد الكمية بناءً على العرض المختار
+            const bundleSelect = document.getElementById('bundle-select').value;
+            let quantity = "1";
+            if (bundleSelect === 'pack2') quantity = "2";
+            if (bundleSelect === 'pack4') quantity = "4";
+
+            // Trigger Meta Pixel Purchase Event
+            if (typeof fbq === 'function') {
+                fbq('track', 'Purchase', {
+                    value: currentPrice,
+                    currency: 'DZD',
+                    content_name: 'حامل المناشف الخشبي بالجاذبية',
+                    content_type: 'product'
+                });
+            }
+
+            // Send data to Google Sheets
             if (GOOGLE_SCRIPT_URL) {
                 const formData = new URLSearchParams();
                 formData.append('fullName', fullName);
                 formData.append('phone', phone);
                 formData.append('wilaya', wilaya);
                 formData.append('commune', commune);
-                formData.append('offer', currentBundleName);
+                formData.append('offer', currentBundleName + ' (الكمية: ' + quantity + ')');
                 formData.append('totalPrice', totalText);
 
                 fetch(GOOGLE_SCRIPT_URL, {
@@ -651,7 +725,7 @@
                 }).catch(err => console.log('Error sending to sheet:', err));
             }
 
-            // إظهار نافذة النجاح
+            // Show success modal
             document.getElementById('success-modal').classList.remove('hidden');
             document.getElementById('success-modal').classList.add('flex');
         }
@@ -663,5 +737,3 @@
     </script>
 </body>
 </html>
-
-```
