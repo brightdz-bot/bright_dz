@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -593,7 +592,7 @@
         </div>
     </footer>
 
- <!-- Success Modal -->
+<!-- Success Modal -->
     <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 shadow-2xl">
             <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl">
@@ -609,48 +608,7 @@
 
     <!-- Scripts -->
     <script>
-        const GOOGLE_SCRIPT_URL = 'function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  
-  // استقبال البيانات بأمان سواء كانت عبر parameter أو postData
-  var data = {};
-  if (e.parameter && Object.keys(e.parameter).length > 0) {
-    data = e.parameter;
-  } else if (e.postData && e.postData.contents) {
-    try {
-      data = JSON.parse(e.postData.contents);
-    } catch (err) {
-      // إذا كانت البيانات مكتوبة بشكل نصي
-      var params = e.postData.contents.split("&");
-      for (var i = 0; i < params.length; i++) {
-        var pair = params[i].split("=");
-        data[pair[0]] = decodeURIComponent(pair[1] || "");
-      }
-    }
-  }
-
-  // استخراج القيم مع وضع قيم افتراضية واضحة في حال كانت فارغة
-  var fullName = data.fullName || data.name || "غير محدد";
-  var phone = data.phone || data.tel || "غير محدد";
-  var wilaya = data.wilaya || "غير محدد";
-  var commune = data.commune || "غير محدد";
-  var offer = data.offer || "غير محدد";
-  var totalPrice = data.totalPrice || "غير محدد";
-
-  // إضافة صف جديد بالبيانات الصحيحة في الشيت
-  sheet.appendRow([
-    new Date(),
-    fullName,
-    phone,
-    wilaya,
-    commune,
-    offer,
-    totalPrice
-  ]);
-  
-  return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
-    .setMimeType(ContentService.MimeType.JSON);
-}';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5t2C9-fe1zw0IvFVNZR4GGEuV-aBZBBNZpdFdq4FgIeOeyjRQSDh_C_sqW4mCCJBSxA/exec';
 
         let currentPrice = 2300;
         let currentBundleName = 'قطعتين (2) - عرض المطبخ والحمام';
