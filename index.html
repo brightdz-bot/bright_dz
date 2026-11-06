@@ -606,9 +606,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script> 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyT-KOLNmYlmCjkXhgTqr02JdjVfeDDqV69huSkDPM4v4z2-hMmOP5kEbIP8QR5kG5d/exec';
+<!-- Scripts -->
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSKU5_DJQ0ed8L8UwxOG_oboFzn05F5nZt7GvZfPyDGDlWkmQJqX1mDfKRoE05cFptGQ/exec';
 
         let currentPrice = 2300;
         let currentBundleName = 'قطعتين (2) - عرض المطبخ والحمام';
@@ -681,15 +681,22 @@
         }
 
         // Form Submit Handler & Google Sheets / Pixel integration
-function handleFormSubmit(e) {
+        function handleFormSubmit(e) {
             e.preventDefault();
 
-            const fullName = document.getElementById('fullname').value;
-            const phone = document.getElementById('phone').value;
-            const wilaya = document.getElementById('wilaya-select').value;
-            const commune = document.getElementById('commune').value;
+            // قراءة القيم من الحقول مع التأكد من الـ IDs
+            const fullNameElement = document.getElementById('fullname');
+            const phoneElement = document.getElementById('phone');
+            const wilayaElement = document.getElementById('wilaya-select');
+            const communeElement = document.getElementById('commune');
             const totalText = document.getElementById('summary-total').innerText;
 
+            const fullName = fullNameElement ? fullNameElement.value : "غير محدد";
+            const phone = phoneElement ? phoneElement.value : "غير محدد";
+            const wilaya = wilayaElement ? wilayaElement.value : "غير محدد";
+            const commune = communeElement ? communeElement.value : "غير محدد";
+
+            // تحديد الكمية والعرض
             const bundleSelect = document.getElementById('bundle-select').value;
             let quantity = "1";
             if (bundleSelect === 'pack2') quantity = "2";
@@ -698,9 +705,20 @@ function handleFormSubmit(e) {
             // توليد رقم طلب عشوائي وفريد
             const orderId = "ORD-" + Math.floor(Math.random() * 899999 + 100000);
 
+            // Trigger Meta Pixel Purchase Event
+            if (typeof fbq === 'function') {
+                fbq('track', 'Purchase', {
+                    value: currentPrice,
+                    currency: 'DZD',
+                    content_name: 'حامل المناشف الخشبي بالجاذبية',
+                    content_type: 'product'
+                });
+            }
+
+            // Send data to Google Sheets
             if (GOOGLE_SCRIPT_URL) {
                 const formData = new URLSearchParams();
-                formData.append('orderId', orderId); // إرسال رقم الطلب
+                formData.append('orderId', orderId);
                 formData.append('fullName', fullName);
                 formData.append('phone', phone);
                 formData.append('wilaya', wilaya);
@@ -715,8 +733,23 @@ function handleFormSubmit(e) {
                 }).catch(err => console.log('Error sending to sheet:', err));
             }
 
-            document.getElementById('success-modal').classList.remove('hidden');
-            document.getElementById('success-modal').classList.add('flex');
+            // Show success modal & reset form
+            const successModal = document.getElementById('success-modal');
+            if (successModal) {
+                successModal.classList.remove('hidden');
+                successModal.classList.add('flex');
+            }
+        }
+
+        function closeModal() {
+            const successModal = document.getElementById('success-modal');
+            if (successModal) {
+                successModal.classList.remove('flex');
+                successModal.classList.add('hidden');
+            }
+            // إعادة ضبط نموذج الطلب والتنظيف
+            const form = document.querySelector('form');
+            if (form) form.reset();
         }
     </script>
 </body>
