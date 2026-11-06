@@ -609,7 +609,48 @@
 
     <!-- Scripts -->
     <script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSKU5_DJQ0ed8L8UwxOG_oboFzn05F5nZt7GvZfPyDGDlWkmQJqX1mDfKRoE05cFptGQ/exec';
+        const GOOGLE_SCRIPT_URL = 'function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // استقبال البيانات بأمان سواء كانت عبر parameter أو postData
+  var data = {};
+  if (e.parameter && Object.keys(e.parameter).length > 0) {
+    data = e.parameter;
+  } else if (e.postData && e.postData.contents) {
+    try {
+      data = JSON.parse(e.postData.contents);
+    } catch (err) {
+      // إذا كانت البيانات مكتوبة بشكل نصي
+      var params = e.postData.contents.split("&");
+      for (var i = 0; i < params.length; i++) {
+        var pair = params[i].split("=");
+        data[pair[0]] = decodeURIComponent(pair[1] || "");
+      }
+    }
+  }
+
+  // استخراج القيم مع وضع قيم افتراضية واضحة في حال كانت فارغة
+  var fullName = data.fullName || data.name || "غير محدد";
+  var phone = data.phone || data.tel || "غير محدد";
+  var wilaya = data.wilaya || "غير محدد";
+  var commune = data.commune || "غير محدد";
+  var offer = data.offer || "غير محدد";
+  var totalPrice = data.totalPrice || "غير محدد";
+
+  // إضافة صف جديد بالبيانات الصحيحة في الشيت
+  sheet.appendRow([
+    new Date(),
+    fullName,
+    phone,
+    wilaya,
+    commune,
+    offer,
+    totalPrice
+  ]);
+  
+  return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}';
 
         let currentPrice = 2300;
         let currentBundleName = 'قطعتين (2) - عرض المطبخ والحمام';
