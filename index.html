@@ -592,7 +592,7 @@
         </div>
     </footer>
 
-<!-- Success Modal -->
+<!-- Success Modal (نافذة نجاح الطلب) -->
     <div id="success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
         <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 shadow-2xl">
             <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl">
@@ -600,7 +600,6 @@
             </div>
             <h3 class="text-2xl font-black text-gray-800">تم تسجيل طلبك بنجاح!</h3>
             
-            <!-- خانة عرض تفاصيل الطلب ورقم الاوردر -->
             <div class="bg-gray-50 p-4 rounded-2xl text-right space-y-2 border border-gray-100 text-sm">
                 <div class="flex justify-between items-center border-b pb-2">
                     <span class="text-gray-500 font-medium">رقم الطلب:</span>
@@ -623,9 +622,9 @@
         </div>
     </div>
 
-<!-- Scripts -->
-<script>
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxypWDAiVUVZkLcm_DbGvsosIKpdWvcbQ5LwdxkoYbcIJzehubIrc00_WlhjY3-bkpq/exec';
+    <!-- Scripts (قسم البرمجة أسفل الصفحة) -->
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSKU5_DJQ0ed8L8UwxOG_oboFzn05F5nZt7GvZfPyDGDlWkmQJqX1mDfKRoE05cFptGQ/exec';
 
         let currentPrice = 2300;
         let currentBundleName = 'قطعتين (2) - عرض المطبخ والحمام';
@@ -634,7 +633,77 @@
             document.getElementById('main-product-img').src = src;
         }
 
-        // Form Submit Handler & Google Sheets / Pixel integration
+        function selectPack(packId, price) {
+            document.querySelectorAll('.pack-card').forEach(card => {
+                card.classList.remove('border-wood-500', 'shadow-xl', 'ring-2', 'ring-wood-500');
+                card.classList.add('border-gray-200');
+            });
+            const selectedCard = document.getElementById('card-' + packId);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-gray-200');
+                selectedCard.classList.add('border-wood-500', 'shadow-xl', 'ring-2', 'ring-wood-500');
+            }
+            const bundleSelect = document.getElementById('bundle-select');
+            if (bundleSelect) bundleSelect.value = packId;
+
+            updateBundleDetails(packId, price);
+        }
+
+        function updateBundleFromSelect() {
+            const bundleSelect = document.getElementById('bundle-select');
+            if (!bundleSelect) return;
+            const val = bundleSelect.value;
+            let price = 1400;
+            if (val === 'pack2') price = 2300;
+            if (val === 'pack4') price = 3800;
+            
+            document.querySelectorAll('.pack-card').forEach(card => {
+                card.classList.remove('border-wood-500', 'shadow-xl', 'ring-2', 'ring-wood-500');
+                card.classList.add('border-gray-200');
+            });
+            const selectedCard = document.getElementById('card-' + val);
+            if (selectedCard) {
+                selectedCard.classList.remove('border-gray-200');
+                selectedCard.classList.add('border-wood-500', 'shadow-xl', 'ring-2', 'ring-wood-500');
+            }
+            updateBundleDetails(val, price);
+        }
+
+        function updateBundleDetails(packId, price) {
+            currentPrice = price;
+            if (packId === 'pack1') {
+                currentBundleName = 'قطعة واحدة (1)';
+                updateSummary(price, false);
+            } else if (packId === 'pack2') {
+                currentBundleName = 'قطعتين (2) + توصيل مجاني';
+                updateSummary(price, true);
+            } else if (packId === 'pack4') {
+                currentBundleName = '4 قطعات (4) + توصيل مجاني';
+                updateSummary(price, true);
+            }
+        }
+
+        function updateSummary(price, isFreeShipping) {
+            const priceEl = document.getElementById('summary-price');
+            const shippingEl = document.getElementById('summary-shipping');
+            const totalEl = document.getElementById('summary-total');
+
+            if (priceEl) priceEl.innerText = price.toLocaleString() + ' دج';
+            if (isFreeShipping) {
+                if (shippingEl) {
+                    shippingEl.innerText = 'مجاني 🚛';
+                    shippingEl.className = 'font-bold text-green-600';
+                }
+                if (totalEl) totalEl.innerText = price.toLocaleString() + ' دج';
+            } else {
+                if (shippingEl) {
+                    shippingEl.innerText = '400 دج';
+                    shippingEl.className = 'font-bold text-gray-800';
+                }
+                if (totalEl) totalEl.innerText = (price + 400).toLocaleString() + ' دج';
+            }
+        }
+
         function handleFormSubmit(e) {
             e.preventDefault();
 
@@ -644,31 +713,19 @@
             const commune = document.getElementById('commune').value;
             const totalText = document.getElementById('summary-total').innerText;
 
-            const bundleSelect = document.getElementById('bundle-select').value;
+            const bundleSelect = document.getElementById('bundle-select');
+            const bundleVal = bundleSelect ? bundleSelect.value : 'pack2';
             let quantity = "1";
-            if (bundleSelect === 'pack2') quantity = "2";
-            if (bundleSelect === 'pack4') quantity = "4";
+            if (bundleVal === 'pack2') quantity = "2";
+            if (bundleVal === 'pack4') quantity = "4";
 
-            // توليد رقم طلب فريد
             const orderId = "ORD-" + Math.floor(Math.random() * 899999 + 100000);
             const fullOrderDetails = currentBundleName + ' (الكمية: ' + quantity + ')';
             const orderStatus = "قيد التأكيد";
 
-            // عرض التفاصيل مباشرة داخل النافذة المنبثقة للمستخدم
             document.getElementById('modal-order-id').innerText = orderId;
             document.getElementById('modal-order-name').innerText = fullOrderDetails;
 
-            // Trigger Meta Pixel Purchase Event
-            if (typeof fbq === 'function') {
-                fbq('track', 'Purchase', {
-                    value: currentPrice,
-                    currency: 'DZD',
-                    content_name: 'حامل المناشف الخشبي بالجاذبية',
-                    content_type: 'product'
-                });
-            }
-
-            // Send data to Google Sheets
             if (GOOGLE_SCRIPT_URL) {
                 const formData = new URLSearchParams();
                 formData.append('orderId', orderId);
@@ -677,7 +734,7 @@
                 formData.append('wilaya', wilaya);
                 formData.append('commune', commune);
                 formData.append('order', fullOrderDetails);
-                formData.append('status', orderStatus); // إرسال الحالة للشيت
+                formData.append('status', orderStatus);
                 formData.append('totalPrice', totalText);
 
                 fetch(GOOGLE_SCRIPT_URL, {
@@ -687,7 +744,6 @@
                 }).catch(err => console.log('Error sending to sheet:', err));
             }
 
-            // Show success modal
             const successModal = document.getElementById('success-modal');
             if (successModal) {
                 successModal.classList.remove('hidden');
@@ -701,8 +757,10 @@
                 successModal.classList.remove('flex');
                 successModal.classList.add('hidden');
             }
-            location.reload(); // إعادة تحميل الصفحة لتنظيف النموذج للطلب التالي
+            location.reload();
         }
     </script>
+</body>
+</html>
 </body>
 </html>
