@@ -681,40 +681,31 @@
         }
 
         // Form Submit Handler & Google Sheets / Pixel integration
-        function handleFormSubmit(e) {
+function handleFormSubmit(e) {
             e.preventDefault();
 
-            // قراءة القيم بدقة من حقول النموذج
             const fullName = document.getElementById('fullname').value;
             const phone = document.getElementById('phone').value;
             const wilaya = document.getElementById('wilaya-select').value;
             const commune = document.getElementById('commune').value;
             const totalText = document.getElementById('summary-total').innerText;
 
-            // تحديد الكمية بناءً على العرض المختار
             const bundleSelect = document.getElementById('bundle-select').value;
             let quantity = "1";
             if (bundleSelect === 'pack2') quantity = "2";
             if (bundleSelect === 'pack4') quantity = "4";
 
-            // Trigger Meta Pixel Purchase Event
-            if (typeof fbq === 'function') {
-                fbq('track', 'Purchase', {
-                    value: currentPrice,
-                    currency: 'DZD',
-                    content_name: 'حامل المناشف الخشبي بالجاذبية',
-                    content_type: 'product'
-                });
-            }
+            // توليد رقم طلب عشوائي وفريد
+            const orderId = "ORD-" + Math.floor(Math.random() * 899999 + 100000);
 
-            // Send data to Google Sheets
             if (GOOGLE_SCRIPT_URL) {
                 const formData = new URLSearchParams();
+                formData.append('orderId', orderId); // إرسال رقم الطلب
                 formData.append('fullName', fullName);
                 formData.append('phone', phone);
                 formData.append('wilaya', wilaya);
                 formData.append('commune', commune);
-                formData.append('offer', currentBundleName + ' (الكمية: ' + quantity + ')');
+                formData.append('order', currentBundleName + ' (الكمية: ' + quantity + ')');
                 formData.append('totalPrice', totalText);
 
                 fetch(GOOGLE_SCRIPT_URL, {
@@ -724,14 +715,8 @@
                 }).catch(err => console.log('Error sending to sheet:', err));
             }
 
-            // Show success modal
             document.getElementById('success-modal').classList.remove('hidden');
             document.getElementById('success-modal').classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('success-modal').classList.remove('flex');
-            document.getElementById('success-modal').classList.add('hidden');
         }
     </script>
 </body>
